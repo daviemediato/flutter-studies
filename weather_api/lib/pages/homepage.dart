@@ -32,7 +32,7 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
   @override
   void initState() {
     super.initState();
-    _getAllCities();
+    //_getAllCities();
   }
 
   @override
