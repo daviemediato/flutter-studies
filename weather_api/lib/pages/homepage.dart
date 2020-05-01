@@ -12,6 +12,8 @@ class WeatherHomePage extends StatefulWidget {
 class _WeatherHomePageState extends State<WeatherHomePage> {
   List<Color> colors = [Colors.red, Colors.blue, Colors.yellow, Colors.green];
   List<City> cities = new List();
+  TextEditingController _cityController = new TextEditingController();
+  TextEditingController _countryController = new TextEditingController();
   Helper helper = new Helper();
 
   Color _backgroundColor() {
@@ -30,15 +32,13 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
   @override
   void initState() {
     super.initState();
-    cities.add(new City("Roskilde", "Dinamarca"));
-    cities.add(new City("Belo Horizonte", "Brazil"));
-    cities.add(new City("London", "England"));
-    //_getAllCities();
+    _getAllCities();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
           Container(
@@ -86,18 +86,28 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 250, left: 40, right: 60),
-            child: ListView.separated(
-              separatorBuilder: (context, index) {
-                return SizedBox(
-                  height: 10,
-                );
-              },
-              scrollDirection: Axis.vertical,
-              itemCount: cities.length,
-              itemBuilder: (context, index) {
-                return CardTile(cities, index);
-              },
-            ),
+            child: cities.length == 0
+                ? Center(
+                    child: Text(
+                      "Lets add a City ! :)",
+                      style: TextStyle(
+                        color: kPrimaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                : ListView.separated(
+                    separatorBuilder: (context, index) {
+                      return SizedBox(
+                        height: 10,
+                      );
+                    },
+                    scrollDirection: Axis.vertical,
+                    itemCount: cities.length,
+                    itemBuilder: (context, index) {
+                      return CardTile(cities, index);
+                    },
+                  ),
           ),
           Positioned(
             bottom: 5,
@@ -115,13 +125,227 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
                     Icons.add,
                     color: _backgroundColor(),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    _showAddButton();
+                  },
                 ),
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  void _showAddButton() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          contentPadding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+          backgroundColor: kPrimaryColor,
+          content: SingleChildScrollView(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                RotatedBox(
+                  quarterTurns: 1,
+                  child: Text(
+                    "Lets save a city!",
+                    style: TextStyle(
+                      fontSize: 45,
+                      fontWeight: FontWeight.bold,
+                      color: _backgroundColor(),
+                    ),
+                  ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          width: 30,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: _backgroundColor(),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "1",
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: kPrimaryColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        Text(
+                          "Name a City!",
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: _backgroundColor(),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      width: 200,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: _backgroundColor(),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: TextField(
+                          controller: _cityController,
+                          keyboardType: TextInputType.text,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          width: 30,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: _backgroundColor(),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "2",
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: kPrimaryColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        Text(
+                          "Name a Country!",
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: _backgroundColor(),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      width: 200,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: _backgroundColor(),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: TextField(
+                          controller: _countryController,
+                          keyboardType: TextInputType.text,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          width: 30,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: _backgroundColor(),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "3",
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: kPrimaryColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        Text(
+                          "Now, just save!",
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: _backgroundColor(),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      width: 100,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: _backgroundColor(),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: FlatButton(
+                          child: Text(
+                            "Save",
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: kPrimaryColor,
+                            ),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              City city = new City(
+                                _cityController.text,
+                                _countryController.text,
+                              );
+                              helper.saveCity(city);
+                              _getAllCities();
+                              _cityController.text = "";
+                              _countryController.text = "";
+                            });
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
