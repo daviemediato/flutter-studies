@@ -18,7 +18,7 @@ class _SplashScreen extends State<ToDoListSplashScreen> {
         navigateAfterSeconds:
             ToDoListHomePage(), //apos o splash screen ira para a pagina ToDoListHomePage
         image: Image.asset(
-          "assets/images/commit-jr_arara.png",
+          "assets/images/check.png",
           alignment: Alignment.center,
         ),
         loadingText: Text(
