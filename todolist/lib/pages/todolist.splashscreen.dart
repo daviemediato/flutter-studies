@@ -14,11 +14,11 @@ class _SplashScreen extends State<ToDoListSplashScreen> {
   @override
   Widget build(BuildContext context) {
     return SplashScreen(
-        seconds: 7,
+        seconds: 3,
         navigateAfterSeconds:
             ToDoListHomePage(), //apos o splash screen ira para a pagina ToDoListHomePage
         image: Image.asset(
-          "assets/images/commit-jr_arara.png",
+          "assets/images/check.png",
           alignment: Alignment.center,
         ),
         loadingText: Text(
@@ -31,7 +31,7 @@ class _SplashScreen extends State<ToDoListSplashScreen> {
             ),
           ),
         ),
-        backgroundColor: Color.fromRGBO(0, 0, 51, 1),
+        backgroundColor: Color.fromRGBO(0, 0, 0, 1),
         styleTextUnderTheLoader: TextStyle(),
         photoSize: 80.0,
         loaderColor: Colors.white);

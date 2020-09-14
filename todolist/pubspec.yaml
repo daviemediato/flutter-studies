@@ -71,4 +71,4 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
   assets:
-    - assets/images/commit-jr_arara.png
+    - assets/images/check.png
